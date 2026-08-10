@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /book.html
+
+Sitemap: https://www.thenobodyclub.com/filmschool/sitemap.xml

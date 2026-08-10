@@ -1,0 +1,489 @@
+/* =============================================================================
+   THE WEEKEND FILM SCHOOL — PROTOTYPE 2
+   The new primary landing page. Nothing here is shared with site.css.
+
+   THE ARGUMENT
+   The business does not sell lessons. It sells the four conditions a first film
+   needs and nobody can buy: a crew, a deadline, a room, and somebody to watch
+   it. The hardest of those to find is the crew. So the crew is the page.
+
+   THE SIGNATURE
+   Five hairlines run down the left of every section in the first half — five
+   people who have never met, each in their own lane, going nowhere. At the
+   moment the page hands you a crew, the five lanes converge into one spine,
+   and that spine carries the rest of the page to the booking form. It is one
+   transform and one set of borders, and it is the whole business in a graphic.
+
+   THE MATERIALS
+   Two, and they alternate. THE ROOM is deep indigo: dark, borrowed, where the
+   feeling lives. THE PAPER is bone: where anything checkable lives — times,
+   prices, what to bring. The accent is a flare, and a flare only shows in the
+   dark, so it never appears on paper. That is a rule, not a preference.
+
+   THE VOICES
+   Fraunces is the human voice and only ever says things a person feels.
+   Schibsted Grotesk runs the structure. IBM Plex Mono holds anything a person
+   could check. The three never blur.
+   ============================================================================= */
+
+/* ---------------------------------------------------------------- tokens -- */
+:root{
+  /* the room */
+  --room:      #14243F;
+  --room-2:    #1B2E4D;
+  --room-3:    #0E1A2E;
+  --bone:      #F2EDE3;
+  --bone-70:   #9BA7BC;   /* 6.4:1 on --room */
+  --lane:      #2C4064;
+
+  /* the paper */
+  --paper:     #F2EDE3;
+  --paper-2:   #E7E0D3;
+  --ink:       #14243F;   /* 12.7:1 on --paper */
+  --ink-70:    #5A6478;   /* 5.1:1  on --paper */
+  --ink-rule:  #C3BCAD;
+
+  /* the one light. 4.97:1 on --room. Never used on --paper: 2.7:1. */
+  --flare:     #F2652A;
+
+  --f-human: "Fraunces", Georgia, "Times New Roman", serif;
+  --f-struct:"Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --f-data:  "IBM Plex Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+
+  --ease:     cubic-bezier(.22,.61,.36,1);
+  --ease-cut: cubic-bezier(.65,0,.35,1);
+
+  --pad:  clamp(20px, 5vw, 64px);
+  --band: clamp(72px, 11vh + 4vw, 156px);
+  --maxw: 1320px;
+}
+
+/* ----------------------------------------------------------------- reset -- */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+img{display:block; max-width:100%; height:auto}
+button,input,select,textarea{font:inherit; color:inherit}
+a{color:inherit; text-decoration:none}
+ol,ul{list-style:none}
+
+body{
+  background:var(--room); color:var(--bone);
+  font-family:var(--f-struct);
+  font-size:clamp(15.5px, .38vw + 14.4px, 18px);
+  line-height:1.55; letter-spacing:-.008em;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:clip;
+}
+:focus-visible{outline:2px solid var(--flare); outline-offset:3px; border-radius:1px}
+.paper :focus-visible{outline-color:var(--ink)}
+.skip{position:absolute; left:-9999px}
+.skip:focus{left:12px; top:12px; z-index:99; background:var(--flare); color:var(--room);
+  padding:10px 16px; font-family:var(--f-data); font-size:.75rem}
+
+/* ------------------------------------------------------------ type roles -- */
+.human{
+  font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 20,"WONK" 1,"opsz" 120;
+  letter-spacing:-.022em; line-height:.98; text-wrap:balance;
+}
+.human em{font-style:normal; color:var(--flare)}
+.paper .human em{color:var(--ink); text-decoration:underline;
+  text-decoration-thickness:.09em; text-underline-offset:.1em;
+  text-decoration-color:var(--ink-rule)}
+
+.h-xl{font-size:clamp(2.9rem, 7.4vw, 6.6rem)}
+.h-lg{font-size:clamp(2.1rem, 4.6vw, 3.9rem)}
+.h-md{font-size:clamp(1.5rem, 2.5vw, 2.2rem)}
+
+.struct{font-family:var(--f-struct); font-weight:700; letter-spacing:-.02em;
+  line-height:1.1; text-wrap:balance}
+.s-lg{font-size:clamp(1.6rem, 3vw, 2.5rem)}
+.s-md{font-size:clamp(1.12rem, 1.5vw, 1.4rem)}
+.s-sm{font-size:1rem}
+
+.data{font-family:var(--f-data); font-weight:500; font-size:.7rem;
+  letter-spacing:.16em; text-transform:uppercase; line-height:1.4;
+  font-variant-numeric:tabular-nums}
+.data--big{font-size:.82rem; letter-spacing:.13em}
+
+.lede{font-size:clamp(1.02rem,1.15vw + .78rem,1.28rem); line-height:1.5;
+  color:var(--bone-70); max-width:46ch; text-wrap:pretty}
+.paper .lede{color:var(--ink-70)}
+.note{font-size:.9rem; color:var(--bone-70); max-width:56ch}
+.paper .note{color:var(--ink-70)}
+
+/* --------------------------------------------------------------- surface -- */
+.paper{background:var(--paper); color:var(--ink)}
+.paper .data{color:var(--ink-70)}
+.deep{background:var(--room-3)}
+
+.band{padding-block:var(--band); position:relative}
+.wrap{width:min(var(--maxw), 100% - var(--pad)*2); margin-inline:auto; position:relative; z-index:2}
+.measure{max-width:62ch}
+
+/* ---------------------------------------------------------- the five lanes -
+   The device. Five hairlines in the first half of the page, one spine after.  */
+.lanes{position:absolute; inset:0; z-index:0; pointer-events:none;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  width:min(var(--maxw), 100% - var(--pad)*2); margin-inline:auto; left:0; right:0}
+.lanes i{border-left:1px solid var(--lane)}
+.paper .lanes i{border-left-color:var(--ink-rule)}
+.lanes i:first-child{border-left-color:transparent}
+@media(max-width:760px){ .lanes{grid-template-columns:repeat(2,1fr)} }
+
+/* After the convergence the spine is a short mark at the top of each section,
+   sitting on the surviving lane at 20%. A full-height rule was tried and cut
+   straight through the copy, which made the device read as a mistake. It only
+   has to say "the lane continued" — it does not have to be drawn all the way. */
+.spine{position:absolute; inset:0; z-index:0; pointer-events:none;
+  width:min(var(--maxw), 100% - var(--pad)*2); margin-inline:auto; left:0; right:0}
+.spine::before{content:""; position:absolute; top:0; left:20%;
+  height:clamp(44px,7vh,92px); border-left:1px solid var(--lane)}
+.paper .spine::before{border-left-color:var(--ink-rule)}
+@media(max-width:760px){ .spine::before{left:0} }
+
+/* ------------------------------------------------------------------- nav -- */
+.nav{position:sticky; top:0; z-index:60; background:color-mix(in srgb,var(--room) 88%,transparent);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--lane)}
+.nav__in{display:flex; align-items:center; gap:clamp(12px,3vw,32px); min-height:66px}
+.mark{display:flex; align-items:center; gap:11px; margin-right:auto}
+.mark svg{width:28px; height:28px; flex:none}
+.mark b{font-family:var(--f-struct); font-weight:800; font-size:.92rem;
+  letter-spacing:-.025em; line-height:1.05}
+.nav__fact{color:var(--bone-70)}
+@media(max-width:900px){ .nav__fact{display:none} }
+
+/* --------------------------------------------------------------- buttons -- */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  min-height:50px; padding:13px 26px; border:1px solid var(--bone);
+  background:transparent; color:var(--bone); cursor:pointer;
+  font-family:var(--f-struct); font-weight:700; font-size:.97rem; letter-spacing:-.01em;
+  transition:background .22s var(--ease), color .22s var(--ease), transform .22s var(--ease)}
+.btn:hover{background:var(--bone); color:var(--room); transform:translateY(-2px)}
+.btn--go{background:var(--flare); border-color:var(--flare); color:var(--room)}
+.btn--go:hover{background:var(--bone); border-color:var(--bone)}
+.paper .btn{border-color:var(--ink); color:var(--ink)}
+.paper .btn:hover{background:var(--ink); color:var(--paper)}
+.paper .btn--go{background:var(--ink); color:var(--paper)}
+.paper .btn--go:hover{background:var(--ink-70); border-color:var(--ink-70)}
+.btns{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+
+/* ------------------------------------------------------------------ shot --
+   One grade for every photograph on the page: crushed into the indigo, lifted
+   into the bone. The images belong to the room rather than sitting in it.     */
+.shot{position:relative; display:grid; grid-template-columns:1fr; overflow:hidden}
+.shot img{grid-area:1/1; width:100%; object-fit:cover; background:var(--room-3);
+  filter:grayscale(1) contrast(1.16) brightness(.94)}
+.shot::after{content:""; grid-area:1/1; position:relative; z-index:1; pointer-events:none;
+  background:var(--room); mix-blend-mode:color; opacity:.82}
+.shot::before{content:""; grid-area:1/1; position:relative; z-index:2; pointer-events:none;
+  background:linear-gradient(to top, rgba(20,36,63,.62), transparent 58%)}
+.shot--flat::before{display:none}
+.shot figcaption{grid-area:2/1; padding-top:12px; z-index:3; position:relative;
+  font-family:var(--f-data); font-size:.63rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--bone-70); max-width:60ch}
+.paper .shot figcaption{color:var(--ink-70)}
+
+/* ------------------------------------------------------------------ hero --
+   Full bleed image, type elevated over it. Four layers, back to front:
+   the photograph, the grade, the scrim, the copy. The scrim is not decoration —
+   it is what guarantees the lede clears 4.5:1 over a moving photograph, so it
+   is a hard directional gradient rather than a polite wash.                   */
+.hero{position:relative; min-height:min(88vh, 820px); display:grid;
+  align-items:end; padding-top:clamp(72px,12vh,132px); padding-bottom:0;
+  overflow:hidden; isolation:isolate}
+.hero__media{position:absolute; inset:0; z-index:0; overflow:hidden}
+/* The source is already blue hour, so it needs almost no grading. An earlier
+   pass crushed it to brightness .62 with a 70% colour blend and erased the
+   photograph entirely — the scrim is what creates contrast for the type, not
+   the grade. */
+.hero__media img{width:100%; height:100%; object-fit:cover; object-position:68% 52%;
+  filter:contrast(1.1) saturate(.86) brightness(1.02);
+  transform:scale(1.06) translateY(var(--pan,0px)); transform-origin:60% 40%;
+  will-change:transform}
+.hero__media::after{content:""; position:absolute; inset:0; background:var(--room);
+  mix-blend-mode:color; opacity:.34}
+.hero__scrim{position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(100deg, var(--room) 2%, rgba(20,36,63,.93) 30%,
+                            rgba(20,36,63,.42) 58%, rgba(20,36,63,0) 88%),
+    linear-gradient(to top, var(--room) 1%, rgba(20,36,63,.42) 22%, transparent 55%)}
+.hero .wrap{z-index:3; padding-bottom:clamp(30px,5vh,58px)}
+.hero__body{max-width:min(100%, 20ch + 22vw)}
+@media(max-width:940px){ .hero__body{max-width:none} }
+.hero__eyebrow{color:var(--bone-70); display:block; margin-bottom:clamp(18px,3.5vh,34px)}
+/* smaller than the section headings elsewhere: over an image it has to fit the
+   first screen with the lede and both buttons, or the promise never gets read */
+.hero h1{font-size:clamp(2.35rem,5.1vw,4.4rem); margin-bottom:22px;
+  text-shadow:0 2px 30px rgba(10,18,32,.55)}
+.hero h1 em{display:block}   /* the second sentence gets its own line, always */
+.hero .lede{margin-bottom:28px; color:#CDD5E2}   /* 8.1:1 over the scrim */
+.hero__price{margin-top:16px; font-size:.88rem; color:var(--bone-70)}
+.hero__rule{margin-top:clamp(30px,5vh,56px); border-top:1px solid rgba(203,213,232,.28);
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding-top:14px; color:var(--bone-70)}
+@media(max-width:620px){ .hero__rule span:last-child{display:none} }
+
+/* ------------------------------------------------------------ the routes -- */
+.routes{margin-top:clamp(28px,5vh,56px); border-top:1px solid var(--ink-rule)}
+.route{display:grid; grid-template-columns:auto 1fr auto; gap:clamp(14px,3vw,40px);
+  align-items:baseline; padding:clamp(16px,2.4vh,26px) 0;
+  border-bottom:1px solid var(--ink-rule)}
+@media(max-width:720px){ .route{grid-template-columns:auto 1fr; gap:10px 16px}
+  .route__verdict{grid-column:1/-1} }
+.route__n{color:var(--ink-70)}
+.route__name{font-family:var(--f-struct); font-weight:700; letter-spacing:-.024em;
+  font-size:clamp(1.25rem,2.2vw,1.85rem); line-height:1.1}
+.route p{font-size:.94rem; color:var(--ink-70); max-width:46ch; margin-top:4px}
+.route__verdict{font-family:var(--f-data); font-size:.68rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-70); white-space:nowrap}
+.route--problem{padding-block:clamp(24px,4vh,40px)}
+.route--problem .route__name{font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 20,"WONK" 1,"opsz" 120;
+  font-size:clamp(1.7rem,3.6vw,3rem); letter-spacing:-.022em}
+.route--problem .route__verdict{color:var(--ink)}
+
+/* --------------------------------------------------------------- the five -
+   Five columns, staggered and pushed apart. They converge exactly once.      */
+.five{display:grid; grid-template-columns:repeat(5,1fr); margin-top:clamp(30px,5vh,58px)}
+@media(max-width:900px){ .five{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:560px){ .five{grid-template-columns:1fr} }
+/* Default is JOINED. The pushed-apart state is added by script, so with
+   JavaScript off the section is simply five clean columns rather than a
+   permanently skewed, half-faded one. */
+.five__p{padding:22px clamp(12px,1.4vw,20px) 26px; border-left:1px solid var(--lane);
+  transition:transform .95s var(--ease), opacity .7s var(--ease);
+  transition-delay:calc(var(--i) * 60ms)}
+.js .five.is-apart .five__p{opacity:.62;
+  transform:translate(calc((var(--i) - 2) * 13px), calc(var(--i) * 20px))}
+@media(max-width:560px){
+  .js .five.is-apart .five__p{transform:translateX(calc((var(--i) - 2) * 8px))}
+}
+.five__who{display:block; color:var(--flare); margin-bottom:9px}
+.five__name{font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 20,"WONK" 1,"opsz" 90;
+  font-size:clamp(1.15rem,1.7vw,1.45rem); line-height:1.05; letter-spacing:-.02em;
+  margin-bottom:9px}
+.five__p p{font-size:.87rem; color:var(--bone-70); text-wrap:pretty}
+
+/* ------------------------------------------------------------ the figures -*/
+.figures{display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--lane); border-block:1px solid var(--lane); margin-top:clamp(28px,5vh,52px)}
+@media(max-width:820px){ .figures{grid-template-columns:repeat(2,1fr)} }
+.fig{background:var(--room); padding:24px clamp(14px,2vw,26px) 26px}
+.paper .figures{background:var(--ink-rule); border-color:var(--ink-rule)}
+.paper .fig{background:var(--paper)}
+.fig b{display:block; font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 20,"WONK" 1,"opsz" 144;
+  font-size:clamp(2.1rem,4.2vw,3.3rem); line-height:.94; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; margin-bottom:10px}
+.fig span{color:var(--bone-70); font-size:.87rem; display:block; max-width:22ch}
+.paper .fig span{color:var(--ink-70)}
+
+.pair{display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,1.6vw,22px);
+  margin-top:clamp(28px,5vh,52px)}
+@media(max-width:640px){ .pair{grid-template-columns:1fr} }
+.pair .shot img{aspect-ratio:3/2}
+
+/* ═══ THE OPENER + THE SHEET ═══════════════════════════════════════════════
+   The site-wide disclosure pattern. A closed box states what is inside and
+   what it costs you to look; clicking it opens a real modal <dialog>, which
+   brings focus trapping, Escape, and backdrop click for free rather than us
+   reimplementing them badly. Reusable anywhere:
+
+     <button data-dialog-open="my-id"> … </button>
+     <dialog class="sheet" id="my-id"> … <button data-dialog-close> … </dialog>
+   ------------------------------------------------------------------------- */
+.opener{display:grid; grid-template-columns:1fr auto; gap:clamp(18px,3vw,44px);
+  align-items:center; width:100%; text-align:left; cursor:pointer;
+  background:var(--paper-2); color:var(--ink); border:1px solid var(--ink);
+  padding:clamp(22px,3.4vw,38px) clamp(20px,3vw,34px);
+  margin-top:clamp(28px,5vh,52px);
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease),
+             background .22s var(--ease)}
+.opener:hover{transform:translateY(-3px); background:var(--paper);
+  box-shadow:10px 10px 0 0 var(--ink)}
+.opener:active{transform:translateY(0); box-shadow:4px 4px 0 0 var(--ink)}
+@media(max-width:640px){ .opener{grid-template-columns:1fr; gap:16px} }
+.opener__k{display:block; margin-bottom:10px}
+.opener__h{display:block; font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 20,"WONK" 1,"opsz" 120; letter-spacing:-.022em;
+  font-size:clamp(1.5rem,2.8vw,2.3rem); line-height:1; margin-bottom:12px}
+.opener__p{display:block; font-size:.92rem; color:var(--ink-70); max-width:52ch}
+.opener__go{display:inline-flex; align-items:center; gap:10px; white-space:nowrap;
+  font-family:var(--f-data); font-size:.68rem; letter-spacing:.16em;
+  text-transform:uppercase; border:1px solid var(--ink); padding:14px 18px}
+.opener__go::after{content:"↗"; font-size:.9rem; line-height:1}
+
+.sheet{width:min(880px, 100% - 32px); max-height:min(86vh, 900px); padding:0;
+  border:1px solid var(--lane); background:var(--room); color:var(--bone);
+  margin:auto; overflow:hidden}
+.sheet::backdrop{background:rgba(6,12,24,.78); backdrop-filter:blur(3px)}
+.sheet__in{overflow-y:auto; max-height:inherit;
+  padding:clamp(24px,3.6vw,44px) clamp(20px,3.2vw,44px) clamp(28px,4vw,48px)}
+.sheet__top{display:flex; align-items:flex-start; gap:20px; justify-content:space-between;
+  border-bottom:1px solid var(--lane); padding-bottom:18px; margin-bottom:8px;
+  position:sticky; top:0; background:var(--room); z-index:2}
+.sheet__x{flex:none; width:44px; height:44px; display:grid; place-items:center;
+  background:transparent; border:1px solid var(--lane); color:var(--bone);
+  cursor:pointer; font-size:1.15rem; line-height:1;
+  transition:background .18s var(--ease), color .18s var(--ease)}
+.sheet__x:hover{background:var(--bone); color:var(--room)}
+.sheet h2{margin-bottom:6px}
+.sheet .day{margin-top:22px}
+/* inside the sheet the day is on the dark material, so its rules invert */
+.sheet .blk{border-bottom-color:var(--lane)}
+.sheet .blk:first-child{border-top-color:var(--lane)}
+.sheet .day__track{background:var(--lane)}
+.sheet .day__fill{display:none}
+.sheet .blk__dur{color:var(--bone)}
+.sheet .blk__dot{background:var(--room); border-color:var(--bone-70)}
+.sheet .blk p{color:var(--bone-70)}
+.sheet .blk--eat h3,.sheet .blk--watch h3{color:var(--bone)}
+.sheet .day__sum{border-top:1px solid var(--lane); padding-top:20px}
+/* no pictures inside the sheet, so it never needs the third column */
+.sheet .blk{grid-template-columns:var(--clock-w) minmax(0,1fr)}
+.sheet .blk p{max-width:60ch}
+@media(max-width:640px){ .sheet .blk{grid-template-columns:1fr; gap:6px} }
+html:has(dialog[open]){overflow:hidden}
+
+/* ---------------------------------------------------------------- the day -*/
+.day{margin-top:clamp(30px,5vh,56px); position:relative}
+.day__track{position:absolute; left:var(--clock-w); top:0; bottom:0; width:1px;
+  background:var(--ink-rule)}
+.day__fill{position:absolute; left:0; top:0; width:100%; background:var(--ink);
+  height:var(--fill,0%); transition:height .18s linear}
+@media(max-width:720px){ .day__track{display:none} }
+:root{ --clock-w:clamp(104px,11vw,148px) }
+.blk{display:grid; grid-template-columns:var(--clock-w) minmax(0,1fr) minmax(0,.85fr);
+  gap:clamp(16px,3vw,42px); align-items:start; padding:clamp(16px,2.2vh,24px) 0;
+  border-bottom:1px solid var(--ink-rule)}
+.blk:first-child{border-top:1px solid var(--ink-rule)}
+@media(max-width:900px){ .blk{grid-template-columns:var(--clock-w) minmax(0,1fr)}
+  .blk__shot{grid-column:1/-1; margin-top:6px} }
+@media(max-width:720px){ .blk{grid-template-columns:1fr; gap:6px} }
+.blk__clock{position:relative; text-align:right; padding-right:22px}
+.blk__dur{display:block; color:var(--ink); font-weight:600}
+.blk__dot{position:absolute; right:-4px; top:.42em; width:8px; height:8px;
+  background:var(--paper); border:1px solid var(--ink); border-radius:50%}
+@media(max-width:720px){ .blk__clock{text-align:left; padding-right:0} }
+@media(max-width:720px){ .blk__dot{display:none} }
+.blk h3{font-family:var(--f-struct); font-weight:700; letter-spacing:-.022em;
+  font-size:clamp(1.18rem,1.9vw,1.55rem); line-height:1.12; margin-bottom:5px}
+.blk p{font-size:.93rem; color:var(--ink-70); max-width:48ch; text-wrap:pretty}
+.blk--eat h3,.blk--watch h3{font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 20,"WONK" 1,"opsz" 100; letter-spacing:-.022em;
+  font-size:clamp(1.4rem,2.4vw,2rem)}
+.blk__shot img{aspect-ratio:3/2}
+.day__sum{margin-top:24px; display:flex; flex-wrap:wrap; gap:10px 28px; align-items:baseline}
+
+/* ------------------------------------------------------------ two hundred -*/
+.metres{position:relative; overflow:hidden; padding-block:clamp(96px,16vh,190px)}
+.metres__bg{position:absolute; inset:0; z-index:0}
+.metres__bg img{width:100%; height:100%; object-fit:cover;
+  filter:grayscale(1) contrast(1.2) brightness(.5)}
+.metres__bg::after{content:""; position:absolute; inset:0; background:var(--room);
+  mix-blend-mode:color; opacity:.88}
+.metres__bg::before{content:""; position:absolute; inset:0; z-index:2;
+  background:linear-gradient(105deg, var(--room) 8%, rgba(20,36,63,.66) 62%, rgba(20,36,63,.3))}
+.metres .wrap{max-width:min(var(--maxw),980px)}
+.metres__n{font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 144;
+  font-size:clamp(5rem,19vw,15rem); line-height:.8; letter-spacing:-.045em;
+  color:var(--flare); margin-bottom:8px}
+.metres__unit{display:block; margin-bottom:clamp(22px,4vh,40px)}
+
+/* ---------------------------------------------------------------- ladder -- */
+.ladder{margin-top:clamp(26px,4vh,48px); border-top:1px solid var(--lane)}
+.rung{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,2fr) auto;
+  gap:clamp(14px,3vw,38px); align-items:baseline; padding:clamp(15px,2vh,22px) 0;
+  border-bottom:1px solid var(--lane)}
+@media(max-width:760px){ .rung{grid-template-columns:1fr auto; gap:6px 16px}
+  .rung p{grid-column:1/-1} }
+.rung__name{font-family:var(--f-struct); font-weight:700; letter-spacing:-.024em;
+  font-size:clamp(1.1rem,1.7vw,1.4rem)}
+.rung__name small{display:block; font-family:var(--f-data); font-size:.63rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--bone-70);
+  font-weight:500; margin-bottom:5px}
+.rung p{font-size:.92rem; color:var(--bone-70); max-width:52ch}
+.rung__price{font-family:var(--f-data); font-size:.9rem; color:var(--flare);
+  font-variant-numeric:tabular-nums; white-space:nowrap}
+.rung--last{opacity:.66}
+.rung--last .rung__price{color:var(--bone-70)}
+
+/* ------------------------------------------------------------------ book -- */
+.book__grid{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(30px,5vw,72px); align-items:start; margin-top:clamp(28px,5vh,52px)}
+@media(max-width:940px){ .book__grid{grid-template-columns:1fr} }
+.dates{border-top:1px solid var(--ink-rule)}
+.dt{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:clamp(12px,2.4vw,28px);
+  align-items:center; padding:18px 0; border-bottom:1px solid var(--ink-rule)}
+@media(max-width:620px){ .dt{grid-template-columns:1fr; gap:8px} }
+.dt__d{font-family:var(--f-human); font-weight:600;
+  font-variation-settings:"SOFT" 20,"WONK" 1,"opsz" 120;
+  font-size:clamp(1.7rem,3vw,2.3rem); line-height:.92; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; min-width:2.2ch}
+.dt__d small{display:block; font-family:var(--f-data); font-size:.6rem; font-weight:500;
+  letter-spacing:.16em; color:var(--ink-70); margin-top:5px}
+.dt h3{font-family:var(--f-struct); font-weight:700; font-size:1.05rem;
+  letter-spacing:-.022em; margin-bottom:3px}
+.dt p{font-size:.86rem; color:var(--ink-70)}
+.dt__act{display:flex; flex-direction:column; align-items:flex-end; gap:7px}
+@media(max-width:620px){ .dt__act{align-items:flex-start} }
+.pill{font-family:var(--f-data); font-size:.63rem; letter-spacing:.14em;
+  text-transform:uppercase; border:1px solid var(--ink-rule); padding:5px 9px;
+  white-space:nowrap}
+.form{background:var(--paper-2); padding:clamp(22px,3.2vw,34px)}
+.field{margin-bottom:16px}
+.field label{display:block; margin-bottom:7px}
+.field input,.field select{width:100%; min-height:50px; padding:13px 15px;
+  background:var(--paper); color:var(--ink); border:1px solid var(--ink);
+  border-radius:0; font-size:1rem}
+.field .hint{display:block; margin-top:6px; font-size:.79rem; color:var(--ink-70)}
+.form .btn{width:100%}
+.form__done{display:none; padding:14px 0; font-size:.95rem}
+.form.is-done .form__done{display:block}
+.bring{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
+.bring li{font-family:var(--f-data); font-size:.66rem; letter-spacing:.13em;
+  text-transform:uppercase; border:1px solid var(--ink-rule); padding:6px 10px}
+
+/* ------------------------------------------------------------------- faq -- */
+.faq{margin-top:clamp(24px,4vh,44px); border-top:1px solid var(--lane)}
+.qa{border-bottom:1px solid var(--lane)}
+.qa summary{list-style:none; cursor:pointer; padding:18px 0; display:flex; gap:20px;
+  align-items:baseline; font-weight:700; font-size:1.03rem; letter-spacing:-.018em}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+"; margin-left:auto; font-family:var(--f-data);
+  color:var(--bone-70); font-size:1.1rem; line-height:1}
+.qa[open] summary::after{content:"–"}
+.qa summary:hover{color:var(--flare)}
+.qa p{padding:0 0 20px; max-width:66ch; color:var(--bone-70); font-size:.95rem}
+
+/* ---------------------------------------------------------------- footer -- */
+.foot{border-top:1px solid var(--lane); padding-block:34px 44px}
+.foot__in{display:flex; flex-wrap:wrap; gap:16px 32px; justify-content:space-between;
+  color:var(--bone-70)}
+
+/* ---------------------------------------------------------------- motion -- */
+/* Same inversion as the five: nothing is hidden unless script is running and
+   has said so. A stylesheet that hides content by default is a stylesheet that
+   loses the page the moment one request fails. */
+.js .rise{opacity:0; transform:translateY(20px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.js .rise.is-in{opacity:1; transform:none}
+.js .stagger > *{opacity:0; transform:translateY(14px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.js .stagger.is-in > *{opacity:1; transform:none}
+.js .stagger.is-in > *:nth-child(1){transition-delay:.02s}
+.js .stagger.is-in > *:nth-child(2){transition-delay:.1s}
+.js .stagger.is-in > *:nth-child(3){transition-delay:.18s}
+.js .stagger.is-in > *:nth-child(4){transition-delay:.26s}
+.js .stagger.is-in > *:nth-child(5){transition-delay:.34s}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important; transition-duration:.01ms!important}
+  .js .rise,.js .stagger > *{opacity:1; transform:none}
+  .js .five.is-apart .five__p{transform:none; opacity:1}
+}

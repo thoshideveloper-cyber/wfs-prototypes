@@ -1,0 +1,2051 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Soft launch. This page is shared by hand and must not compete with
+     index.html in search. saturday.js removes this line the moment
+     config.landing.softLaunch is set to false. -->
+<meta name="robots" content="noindex, nofollow" data-soft-launch>
+
+<title>Make your first film in one day. Hyderabad. The Weekend Film School</title>
+<meta name="description" content="One Saturday in Hyderabad. You arrive knowing nobody, join a crew of five, and by 7 PM your film is on a screen with your name in the credits. From ₹1,499.">
+<link rel="canonical" href="https://www.thenobodyclub.com/filmschool/saturday/" data-canonical>
+
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#040404" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Weekend Film School">
+<meta property="og:title" content="You have directed four hundred films. You have released none of them.">
+<meta property="og:description" content="One Saturday in Hyderabad. Ten in the morning to seven at night. By seven, one of them exists.">
+<meta property="og:url" content="https://www.thenobodyclub.com/filmschool/saturday/" data-og-url>
+<meta property="og:image" content="https://www.thenobodyclub.com/filmschool/saturday/assets/img/og-cover.png" data-og-image>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Weekend Film School. Make your first film in one day.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="assets/fonts/BricolageGrotesque-subset.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+/* ==========================================================================
+   The Weekend Film School. saturday/
+   One page. Its own design system. Shares nothing with the other six pages
+   except assets/js/config.js, which the founder edits every week.
+
+   Order: font faces, primitives, semantics, components, sections, motion.
+   Nothing here reaches past this folder.
+   ========================================================================== */
+
+/* ------------------------------------------------------------------ fonts
+   Subset and built by scripts/build-fonts.py. Axis ranges are limited to
+   what this page sets, which is why two variable faces fit in 81 KB.
+   Bricolage: opsz 13-96, wdth 75-100, wght 600-700.
+   Literata:  opsz 8-24, wght 400-700.                                     */
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("assets/fonts/BricolageGrotesque-subset.woff2") format("woff2");
+  font-weight: 600 700;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Literata";
+  src: url("assets/fonts/Literata-subset.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* Fallback metrics measured against the real faces, not guessed.
+   size-adjust matches average advance width, which is what decides how many
+   lines a paragraph takes, which is where font CLS actually comes from. */
+@font-face {
+  font-family: "Bricolage Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Roboto");
+  size-adjust: 101.2%;
+  ascent-override: 91.9%;
+  descent-override: 26.7%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Literata Fallback";
+  src: local("Georgia"), local("Times New Roman"), local("Noto Serif");
+  size-adjust: 108.5%;
+  ascent-override: 108.5%;
+  descent-override: 28.4%;
+  line-gap-override: 0%;
+}
+
+/* ------------------------------------------------------- layer 1: primitives
+   Raw values. No meaning. Never referenced by a component.                */
+
+:root {
+  --c-white: #FFFFFF;
+  --c-grey-97: #F5F7F9;
+  --c-grey-95: #F2F5F7;
+  --c-grey-90: #E5E8EC;
+  --c-grey-88: #D9DDE0;
+  --c-grey-75: #ACB2B7;
+  --c-grey-65: #8D9399;
+  --c-grey-62: #868D94;
+  --c-grey-50: #666D73;
+  --c-grey-48: #5D6269;
+  --c-grey-42: #51575E;
+  --c-grey-22: #1D2022;
+  --c-grey-20: #151A20;
+  --c-grey-15: #0F1113;
+  --c-black: #040404;
+  --c-azure-40: #0064BE;
+  --c-azure-70: #38AEFA;
+  --c-red-50: #BC0E18;
+  --c-red-70: #F3705E;
+
+  --f-display: "Bricolage Grotesque", "Bricolage Fallback", system-ui, sans-serif;
+  --f-body: "Literata", "Literata Fallback", Georgia, serif;
+
+  --sp-0: 0;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 72px;
+  --sp-9: 112px;
+  --sp-10: 160px;
+
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 420ms;
+  --dur-4: 700ms;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+
+  --r-0: 0;
+  --r-1: 4px;
+
+  --w-hairline: 1px;
+  --w-rule: 2px;
+  --w-focus: 2px;
+}
+
+/* Authored in OKLCH, which is how every one of these was derived and
+   contrast-checked. The hex above is the fallback. */
+@supports (color: oklch(1 0 0)) {
+  :root {
+    --c-white: oklch(1 0 0);
+    --c-grey-97: oklch(0.975 0.003 250);
+    --c-grey-95: oklch(0.968 0.004 250);
+    --c-grey-90: oklch(0.930 0.006 250);
+    --c-grey-88: oklch(0.895 0.006 250);
+    --c-grey-75: oklch(0.760 0.010 250);
+    --c-grey-65: oklch(0.660 0.012 250);
+    --c-grey-62: oklch(0.640 0.013 250);
+    --c-grey-50: oklch(0.530 0.013 250);
+    --c-grey-48: oklch(0.495 0.012 250);
+    --c-grey-42: oklch(0.455 0.014 250);
+    --c-grey-22: oklch(0.240 0.006 250);
+    --c-grey-20: oklch(0.215 0.014 250);
+    --c-grey-15: oklch(0.175 0.005 250);
+    --c-black: oklch(0.11 0 0);
+    --c-azure-40: oklch(0.500 0.170 250);
+    --c-azure-70: oklch(0.720 0.150 242);
+    --c-red-50: oklch(0.505 0.200 27);
+    --c-red-70: oklch(0.700 0.165 30);
+  }
+}
+
+/* -------------------------------------------------------- layer 2: semantic
+   Roles. The layer components read. Act-scoped, so a component is written
+   once and works in both halves of the page.                              */
+
+[data-act="day"] {
+  --surface: var(--c-white);
+  --surface-raised: var(--c-grey-95);
+  --surface-inset: var(--c-grey-90);
+  --text: var(--c-grey-20);
+  --text-secondary: var(--c-grey-42);
+  --text-hint: var(--c-grey-50);
+  --border-ui: var(--c-grey-62);
+  --border-decorative: var(--c-grey-88);
+  --accent: var(--c-azure-40);
+  --accent-on: var(--c-white);
+  --error: var(--c-red-50);
+  --focus-ring: var(--c-azure-40);
+  --leading-add: 0;
+}
+
+[data-act="night"] {
+  --surface: var(--c-black);
+  --surface-raised: var(--c-grey-15);
+  --surface-inset: var(--c-grey-15);
+  --text: var(--c-grey-97);
+  --text-secondary: var(--c-grey-75);
+  --text-hint: var(--c-grey-65);
+  --border-ui: var(--c-grey-48);
+  --border-decorative: var(--c-grey-22);
+  --accent: var(--c-azure-70);
+  --accent-on: var(--c-black);
+  --error: var(--c-red-70);
+  --focus-ring: var(--c-azure-70);
+  /* Light type on dark reads lighter and needs the air. */
+  --leading-add: 0.05;
+}
+
+:root {
+  /* Declared here as well as per act, because body sits outside [data-act]
+     and calc() with an undefined var silently invalidates the whole
+     declaration, which would drop body copy to `normal` leading. */
+  --leading-add: 0;
+
+  --measure-body: 62ch;
+  --measure-lead: 54ch;
+  --measure-display: 16ch;
+
+  --z-base: 0;
+  --z-rail: 10;
+  --z-sticky: 20;
+  --z-header: 30;
+  --z-dialog: 40;
+
+  /* The 24px floor is what keeps the mobile rail's tap targets out of the
+     copy. Do not lower it. */
+  --pad: clamp(24px, 5vw, 40px);
+  --shell: 1120px;
+
+  /* Type scale. Minimum step ratio 1.25, capped at 6rem. */
+  --fs-display-1: clamp(2.75rem, 1.55rem + 5.3vw, 5.5rem);
+  --fs-timecode: clamp(2.5rem, 1.2rem + 5.8vw, 6rem);
+  --fs-display-2: clamp(2rem, 1.35rem + 2.9vw, 3.5rem);
+  --fs-display-3: clamp(1.5rem, 1.24rem + 1.15vw, 2.25rem);
+  --fs-lead: clamp(1.125rem, 1.05rem + 0.33vw, 1.375rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-label: 0.875rem;
+  --fs-micro: 0.8125rem;
+
+  /* layer 3: component knobs */
+  --btn-height: 48px;
+  --btn-height-sm: 40px;
+  --btn-pad-x: var(--sp-5);
+  --field-height: 52px;
+  --field-pad-x: var(--sp-4);
+  --chip-height: 44px;
+  --chip-pad-x: var(--sp-4);
+  --rail-width: 72px;
+  --rail-line: 2px;
+  --rail-tick: 8px;
+  --seatbar-height: 64px;
+  --timecode-min-width: 7ch;
+}
+
+/* ------------------------------------------------------------------ reset */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  /* clip, not hidden: it kills horizontal scroll without making html a
+     scroll container, which would break the fixed rail and seat bar. */
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  interpolate-size: allow-keywords;
+}
+
+body {
+  margin: 0;
+  background: var(--c-white);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: var(--fs-body);
+  line-height: calc(1.6 + var(--leading-add));
+  font-optical-sizing: auto;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+h1, h2, h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 100%;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-display-1);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: var(--measure-display);
+}
+
+h2 {
+  font-size: var(--fs-display-2);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  max-width: var(--measure-display);
+}
+
+h3 {
+  font-size: var(--fs-display-3);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+p {
+  text-wrap: pretty;
+  max-width: var(--measure-body);
+}
+
+p + p { margin-top: 1em; }
+h2 + p, h3 + p, h2 + .lead { margin-top: 0.6em; }
+
+/* Paragraph spacing is for prose. These two lay their paragraphs out with
+   flex and grid, and the extra margin fights the gap. */
+.masthead p, .slot p { margin-top: 0; }
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: calc(1.5 + var(--leading-add));
+  max-width: var(--measure-lead);
+  color: var(--text-secondary);
+}
+
+/* The two small roles from the §10.2 table, whose tracking is otherwise easy
+   to lose when a component only sets its size. */
+.masthead__mark, .masthead__place, .rail__label, .btn, .seatbar__meta,
+.field__label, .chips legend, .slot__id, .export__labels, .figure200__caption,
+.rung__price, .bill__list, .chip span {
+  letter-spacing: 0.01em;
+}
+
+.consent, .footer__colophon, .slot__alt, .field__hint, .field__error {
+  font-size: var(--fs-micro);
+  line-height: 1.5;
+  letter-spacing: 0.005em;
+}
+
+strong, b { font-weight: 600; }
+
+/* --------------------------------------------------------------- utilities */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shell {
+  width: min(100% - 2 * var(--pad), var(--shell));
+  margin-inline: auto;
+}
+
+/* Sections span the body content box, so anything that is not inside .shell
+   is already full bleed. No 100vw trick, which would count the scrollbar. */
+.bleed { width: 100%; }
+
+/* Re-declared per act, not only on body: line-height inherits its computed
+   value, so the night act's extra 0.05 only lands if it is set inside the
+   element that carries the act. */
+.act {
+  background: var(--surface);
+  color: var(--text);
+  line-height: calc(1.6 + var(--leading-add));
+}
+
+/* ------------------------------------------------------------- skip link */
+
+.skip {
+  position: absolute;
+  left: var(--sp-4);
+  top: var(--sp-4);
+  z-index: var(--z-dialog);
+  transform: translateY(-200%);
+  background: var(--c-white);
+  color: var(--c-grey-20);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-1);
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 0 2px var(--c-azure-40);
+}
+
+.skip:focus { transform: translateY(0); }
+
+/* ---------------------------------------------------------------- header */
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: 64px;
+  padding-block: var(--sp-4);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.masthead__mark,
+.masthead__place {
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  line-height: 1.3;
+}
+
+/* The wordmark is set in caps because that is the wordmark. Nothing else on
+   the page is, which is what keeps it from reading as an eyebrow. */
+.masthead__mark { letter-spacing: 0.08em; text-transform: uppercase; }
+.masthead__place { color: var(--text-secondary); }
+
+/* ------------------------------------------------------------------- rail
+   Real navigation, a landmark, and the page's identity. Under 1024px it is
+   a 2px line with ticks and no text, costing zero reading width.          */
+
+.rail {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: var(--z-rail);
+  display: flex;
+  align-items: center;
+  width: var(--rail-width);
+  padding-left: 10px;
+  pointer-events: none;
+}
+
+.rail__list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  pointer-events: auto;
+}
+
+/* The spine, and the accent filled to the active tick. --rail-progress is the
+   only thing the script writes here; everything else is static. */
+.rail__list::before,
+.rail__list::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--rail-line);
+}
+
+.rail__list::before { bottom: 0; background: var(--border-decorative); }
+
+.rail__list::after {
+  height: var(--rail-progress, 0);
+  background: var(--accent);
+  transition: height var(--dur-2) var(--ease-out-quart);
+}
+
+.rail__item { display: flex; }
+
+/* The tick is 8px; the target around it is 44x44 and sits entirely inside
+   the rail gutter, so it never reaches past the viewport or over content. */
+.rail__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 44px;
+  min-height: 44px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.rail__tick {
+  flex: none;
+  width: var(--rail-tick);
+  height: var(--rail-line);
+  background: var(--c-grey-62);
+}
+
+.rail__link[aria-current="true"] .rail__tick {
+  width: calc(var(--rail-tick) * 2.5);
+  background: var(--accent);
+}
+
+.rail__label {
+  position: absolute;
+  pointer-events: none;
+  left: calc(var(--rail-tick) + 24px);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  white-space: nowrap;
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transition: opacity 140ms var(--ease-out-quart);
+}
+
+.rail__time {
+  font-weight: 600;
+  font-stretch: 78%;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--accent);
+}
+
+.rail__link[aria-current="true"] .rail__label { opacity: 1; }
+.rail__link:hover .rail__label { opacity: 0.6; }
+
+/* On focus and with no script, the label needs its own ground because it can
+   sit over either surface. */
+.rail__link:focus-visible .rail__label {
+  opacity: 1;
+  background: var(--c-white);
+  color: var(--c-grey-20);
+  padding: 2px 8px;
+  margin: -2px -8px;
+  border-radius: var(--r-1);
+}
+
+.rail__link:focus-visible .rail__time { color: var(--c-azure-40); }
+
+.rail__link:focus-visible {
+  outline: var(--w-focus) solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--r-1);
+}
+
+/* Under 1024px the rail is a line of ticks with no text. The target shrinks
+   to 24px so it stays inside the page gutter and never steals a tap from
+   the copy, which is why --pad has a 24px floor. */
+@media (max-width: 1023px) {
+  .rail { width: 24px; padding-left: 4px; }
+  .rail__list { gap: var(--sp-1); }
+  .rail__link { width: 20px; min-height: 24px; }
+  .rail__label { display: none; }
+  .rail__tick { width: 6px; }
+  .rail__link[aria-current="true"] .rail__tick { width: 12px; }
+  .rail__list::after { display: none; }
+}
+
+/* The rail gets its own gutter rather than sitting on top of the content, so
+   full-bleed frames stop at its edge and it stays legible over anything.
+   The gutter is padding on each surface, never on body, or the body colour
+   would show through it and put a white stripe down the dark act.
+   .act is never nested inside .act, so this cannot double up. */
+@media (min-width: 1024px) {
+  .act, .cut-band { padding-left: var(--rail-width); }
+}
+
+/* Between two sections there is no honest label to show, and the tick colour
+   is the one that reads on both surfaces. */
+.rail.is-between .rail__label { opacity: 0; }
+
+/* -------------------------------------------------------------- seat bar */
+
+.seatbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: var(--seatbar-height);
+  padding: var(--sp-3) var(--pad);
+  padding-bottom: max(var(--sp-3), env(safe-area-inset-bottom));
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 -1px 0 var(--border-ui);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform var(--dur-2) var(--ease-out-quart),
+              opacity var(--dur-2) var(--ease-out-quart),
+              visibility 0s linear var(--dur-2);
+}
+
+.seatbar.is-shown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.seatbar__meta {
+  min-width: 0;
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.seatbar .btn { flex: none; }
+
+/* Under 480px the date and the price are the two facts worth the width. */
+@media (max-width: 479px) {
+  .seatbar__area { display: none; }
+}
+
+.seatbar__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: 0.02em;
+}
+
+@media (min-width: 1024px) {
+  .seatbar {
+    left: auto;
+    right: var(--pad);
+    bottom: var(--pad);
+    gap: var(--sp-5);
+    padding: var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-5);
+    box-shadow: 0 1px 0 var(--border-ui), 0 0 0 1px var(--border-ui);
+  }
+}
+
+/* --------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: var(--btn-height);
+  padding-inline: var(--btn-pad-x);
+  border: 0;
+  border-radius: var(--r-1);
+  background: var(--accent);
+  color: var(--accent-on);
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-1) var(--ease-out-quart),
+              transform var(--dur-1) var(--ease-out-quart);
+}
+
+.btn--sm { min-height: var(--btn-height-sm); padding-inline: var(--sp-4); }
+
+.btn--quiet {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--border-ui);
+}
+
+@supports (color: oklch(from red l c h)) {
+  .btn:hover { background: oklch(from var(--accent) calc(l + 0.06) c h); }
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn:focus-visible {
+  outline: var(--w-focus) solid var(--focus-ring);
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 1px var(--accent-on);
+}
+
+.btn[aria-disabled="true"], .btn:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn[aria-busy="true"] { pointer-events: none; }
+
+.btn__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--accent-on) 35%, transparent);
+}
+
+.btn__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: var(--accent-on);
+  animation: btn-indeterminate 900ms var(--ease-out-quart) infinite;
+}
+
+@keyframes btn-indeterminate {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(350%); }
+}
+
+.btn--busy { position: relative; overflow: hidden; }
+
+/* ------------------------------------------------------------------ links */
+
+.link, .prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-skip-ink: all;
+}
+
+.link:hover, .prose a:hover { text-decoration-thickness: 2px; }
+
+.link:focus-visible, .prose a:focus-visible {
+  outline: var(--w-focus) solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* A link standing on its own is a control, not prose, so it carries a full
+   target. Links inside a sentence keep the inline exception. */
+.hero__actions .link,
+.footer__links .link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ------------------------------------------------------- image placeholder
+   A frame that is honestly a frame. Exact aspect ratio, so the built layout
+   is the final layout and CLS stays 0 when the photograph arrives.        */
+
+/* The ratio comes from the slot's own data-ratio, so the frame and the label
+   under it can never disagree. The one exception is the hero, which §14.3
+   specifies as a 4:5 crop of the same 16:9 asset on phones. */
+[data-ratio="16:9"] .slot { --slot-ratio: 16 / 9; }
+[data-ratio="3:2"] .slot { --slot-ratio: 3 / 2; }
+[data-ratio="1:1"] .slot { --slot-ratio: 1 / 1; }
+
+@media (max-width: 767px) {
+  .hero__frame .slot { --slot-ratio: 4 / 5; }
+}
+
+.slot {
+  display: grid;
+  place-content: center;
+  gap: var(--sp-1);
+  aspect-ratio: var(--slot-ratio, 16 / 9);
+  padding: var(--sp-5);
+  background: var(--surface-inset);
+  box-shadow: inset 0 0 0 1px var(--border-decorative);
+  text-align: center;
+}
+
+/* --text-secondary, not --text-hint: the hint token clears 4.5:1 on the base
+   and raised surfaces but only reaches 4.27:1 on the inset fill these frames
+   use, which is the one place the plan's own pair was computed against the
+   wrong background. */
+.slot__id {
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  color: var(--text-secondary);
+}
+
+.slot__alt {
+  font-size: var(--fs-micro);
+  color: var(--text-secondary);
+  max-width: 46ch;
+}
+
+/* ------------------------------------------------------------------- hero */
+
+/* The type-only hero from §14.5: headline, hairline, subtext and CTA. The
+   photograph's slot sits under it, holding its exact ratio, so dropping a
+   real frame in later costs no layout change. */
+.hero {
+  padding-top: clamp(var(--sp-6), 5vw, var(--sp-8));
+}
+
+.hero__frame { margin-top: clamp(var(--sp-7), 7vw, var(--sp-9)); }
+
+.hero__title { max-width: 18ch; }
+
+.hero__rule {
+  width: 100%;
+  height: var(--w-hairline);
+  margin-block: clamp(var(--sp-5), 4vw, var(--sp-6));
+  background: var(--border-decorative);
+}
+
+.hero__sub {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  max-width: var(--measure-lead);
+  margin-bottom: clamp(var(--sp-5), 4vw, var(--sp-7));
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+/* ------------------------------------------------- section rhythm by type
+   Uniform section padding produces no pacing, so it varies by what the
+   section is for.                                                         */
+
+.s-argument { padding-block: clamp(72px, 9vw, 140px); }
+.s-figure { padding-block: clamp(96px, 12vw, 180px); }
+.s-questions { padding-block: clamp(64px, 7vw, 104px); }
+.s-shelf { padding-block: clamp(56px, 6vw, 88px); }
+.s-ask { padding-block: clamp(72px, 9vw, 120px) clamp(96px, 10vw, 160px); }
+
+/* --------------------------------------------------- the four crossings-out */
+
+.crossings { margin-top: clamp(var(--sp-7), 6vw, var(--sp-9)); }
+
+.crossing + .crossing { margin-top: clamp(var(--sp-6), 4vw, var(--sp-7)); }
+
+.crossing__struck {
+  display: inline-block;
+  position: relative;
+  font-family: var(--f-display);
+  font-size: var(--fs-display-3);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.crossing__struck::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.56em;
+  height: var(--w-rule);
+  background: var(--accent);
+}
+
+.crossing__answer {
+  margin-top: 0.35em;
+  max-width: var(--measure-body);
+}
+
+.crossings__turn {
+  margin-top: clamp(var(--sp-7), 7vw, var(--sp-8));
+  padding-top: clamp(var(--sp-6), 4vw, var(--sp-7));
+  border-top: var(--w-hairline) solid var(--border-decorative);
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  max-width: var(--measure-lead);
+}
+
+/* -------------------------------------------------------------- the day */
+
+.day__intro { margin-bottom: clamp(var(--sp-7), 6vw, var(--sp-8)); }
+
+/* The day drawn to scale. Each segment's width is its real duration, which
+   is also how it silently proves the shoot is the biggest block. */
+.daybar { margin-top: clamp(var(--sp-6), 4vw, var(--sp-7)); }
+
+.daybar__track {
+  display: flex;
+  gap: 3px;
+  height: 44px;
+}
+
+.daybar__seg {
+  flex: var(--dur) 1 0;
+  display: grid;
+  place-content: center;
+  min-width: 0;
+  background: var(--surface-inset);
+  box-shadow: inset 0 0 0 1px var(--border-decorative);
+  font-family: var(--f-display);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  font-stretch: 78%;
+  color: var(--text-secondary);
+  overflow: hidden;
+}
+
+.daybar__seg--shoot {
+  background: var(--accent);
+  color: var(--accent-on);
+  box-shadow: none;
+}
+
+.daybar__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  margin-top: var(--sp-3);
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.daybar__legend b {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-stretch: 92%;
+  color: var(--text);
+}
+
+@media (max-width: 479px) {
+  .daybar__seg { font-size: 0; }
+}
+
+/* Each block is tight inside and tall outside: the day should feel like it
+   takes time to scroll through. */
+.block {
+  background: var(--surface);
+  color: var(--text);
+  padding-block: clamp(40px, 5vw, 72px);
+  min-height: 70svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.block__inner {
+  display: grid;
+  gap: clamp(var(--sp-5), 4vw, var(--sp-7));
+}
+
+
+.timecode {
+  display: block;
+  font-family: var(--f-display);
+  font-size: var(--fs-timecode);
+  font-weight: 600;
+  font-stretch: 75%;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  min-width: var(--timecode-min-width);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--accent);
+}
+
+.block__name { margin-top: 0.15em; }
+.block__body { margin-top: 0.7em; }
+
+@media (min-width: 900px) {
+  .block__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+  .block--flip .block__frame { order: -1; }
+  .block--wide .block__inner { grid-template-columns: minmax(0, 1fr); }
+}
+
+.day__lessons {
+  margin-top: clamp(var(--sp-7), 6vw, var(--sp-8));
+  padding-top: clamp(var(--sp-5), 4vw, var(--sp-6));
+  border-top: var(--w-hairline) solid var(--border-decorative);
+  font-size: var(--fs-lead);
+  line-height: calc(1.5 + var(--leading-add));
+  max-width: var(--measure-lead);
+  color: var(--text-secondary);
+}
+
+/* ------------------------------------------------------------ the cut
+   An empty band that exists only to hold the crossfade. It has to be taller
+   than the viewport, because a surface can only crossfade while there is no
+   text on it: no single colour is readable on both white and black.
+   With no scroll timeline and under reduced motion it has no height at all
+   and the two acts meet as a hard cut, which is a film cut and arguably
+   better.                                                                 */
+
+.cut-band { height: 0; background: var(--c-white); }
+
+/* --------------------------------------------------------- the export bar */
+
+/* The right-hand gap is where ". Exported." hangs, so the track stops short
+   of the measure rather than pushing that text off the screen. */
+.export {
+  margin-top: clamp(var(--sp-6), 4vw, var(--sp-7));
+  max-width: min(34rem, 100% - 72px);
+}
+
+.export__track {
+  position: relative;
+  height: var(--w-rule);
+  background: var(--border-decorative);
+  overflow: hidden;
+}
+
+.export__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: left center;
+}
+
+.export__labels {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-top: var(--sp-2);
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 78%;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--text-secondary);
+}
+
+/* "Exported." hangs outside the label so it costs no width while it is
+   invisible, which would otherwise push 6:15 off the end of the track. */
+.export__end { position: relative; color: var(--accent); }
+
+.export__done {
+  position: absolute;
+  left: 100%;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------- two hundred metres */
+
+.figure200 {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-5);
+  text-align: center;
+}
+
+.figure200__head { margin-bottom: clamp(var(--sp-5), 4vw, var(--sp-6)); }
+
+.figure200__plate {
+  position: relative;
+  width: min(100%, 640px);
+  aspect-ratio: 1 / 1;
+}
+
+
+.figure200__circle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.figure200__circle circle {
+  fill: color-mix(in oklab, var(--accent) 12%, transparent);
+  stroke: var(--accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.figure200__caption {
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  color: var(--text-secondary);
+}
+
+.figure200 p { text-align: left; }
+
+/* --------------------------------------------------------------- the bill */
+
+.bill { margin-top: clamp(var(--sp-6), 5vw, var(--sp-8)); }
+
+.bill__group + .bill__group {
+  margin-top: clamp(var(--sp-6), 4vw, var(--sp-7));
+  padding-top: clamp(var(--sp-5), 3vw, var(--sp-6));
+  border-top: var(--w-hairline) solid var(--border-decorative);
+}
+
+/* §12 sets these bold, not as tracked small caps. Three uppercase labels
+   would have been three eyebrows against a budget of zero. */
+.bill__head {
+  font-family: var(--f-display);
+  font-size: var(--fs-lead);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: var(--sp-4);
+}
+
+.bill__list li + li { margin-top: 0.45em; }
+.bill__list li { max-width: var(--measure-body); }
+
+.bill__note { max-width: var(--measure-body); }
+
+.bill__dinner {
+  margin-top: 0.6em;
+  font-size: var(--fs-lead);
+  color: var(--text-secondary);
+}
+
+/* ------------------------------------------------------------- the ladder
+   Four steps, each indented one further than the last, so the ladder is a
+   shape rather than a table.                                              */
+
+.ladder { margin-top: clamp(var(--sp-6), 5vw, var(--sp-8)); }
+
+.rung {
+  --indent: 0px;
+  margin-left: var(--indent);
+  padding-block: clamp(var(--sp-4), 2.5vw, var(--sp-5));
+  border-top: var(--w-hairline) solid var(--border-decorative);
+  max-width: calc(var(--measure-body) + 8ch);
+}
+
+.rung:last-child { border-bottom: var(--w-hairline) solid var(--border-decorative); }
+
+.rung__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+
+.rung__name {
+  font-family: var(--f-display);
+  font-size: var(--fs-display-3);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.rung__price {
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 78%;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.rung__body { margin-top: 0.35em; color: var(--text-secondary); }
+
+.ladder__close {
+  margin-top: clamp(var(--sp-6), 4vw, var(--sp-7));
+  font-size: var(--fs-lead);
+  line-height: calc(1.5 + var(--leading-add));
+  max-width: var(--measure-lead);
+}
+
+@media (min-width: 768px) {
+  .rung--2 { --indent: 4ch; }
+  .rung--3 { --indent: 8ch; }
+  .rung--4 { --indent: 12ch; }
+}
+
+/* ------------------------------------------------------------- questions */
+
+.qa { margin-top: clamp(var(--sp-6), 5vw, var(--sp-7)); max-width: 44rem; }
+
+.qa__item { border-top: var(--w-hairline) solid var(--border-decorative); }
+.qa__item:first-child { border-top: 0; }
+
+.qa__q {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  cursor: pointer;
+  list-style: none;
+}
+
+.qa__q::-webkit-details-marker { display: none; }
+
+.qa__q h3 { flex: 1; font-size: clamp(1.125rem, 1.05rem + 0.5vw, 1.375rem); }
+
+.qa__chevron {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin-top: 0.35em;
+  border-right: var(--w-rule) solid var(--accent);
+  border-bottom: var(--w-rule) solid var(--accent);
+  transform: rotate(45deg);
+  transition: transform var(--dur-2) var(--ease-out-quart);
+}
+
+.qa__item[open] .qa__chevron { transform: rotate(225deg); }
+
+.qa__q:focus-visible {
+  outline: var(--w-focus) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.qa__a { padding-bottom: var(--sp-5); }
+.qa__a p { color: var(--text-secondary); }
+
+@supports selector(::details-content) {
+  .qa__item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size var(--dur-2) var(--ease-out-quart),
+                content-visibility var(--dur-2) allow-discrete;
+  }
+  .qa__item[open]::details-content { block-size: auto; }
+}
+
+/* ----------------------------------------------------------- empty shelf */
+
+.shelf {
+  border-top: var(--w-hairline) solid var(--border-decorative);
+  border-bottom: var(--w-hairline) solid var(--border-decorative);
+}
+
+.shelf p { margin-top: 0.6em; max-width: var(--measure-lead); font-size: var(--fs-lead); line-height: calc(1.5 + var(--leading-add)); }
+
+/* ------------------------------------------------------------- the ask */
+
+.ask__frame { margin-bottom: clamp(var(--sp-7), 6vw, var(--sp-8)); }
+
+.ask__head { margin-bottom: clamp(var(--sp-6), 5vw, var(--sp-7)); }
+.ask__scale { margin-top: 0.6em; font-size: var(--fs-lead); color: var(--text-secondary); }
+
+/* Thirty seats, six crews of five. It makes the number legible in one
+   glance at the moment somebody is deciding. */
+.crews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4) var(--sp-5);
+  margin-top: var(--sp-6);
+}
+
+.crew {
+  display: grid;
+  grid-template-columns: repeat(5, 8px);
+  gap: 5px;
+}
+
+.crew span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ---------------------------------------------------------------- form */
+
+.form {
+  max-width: 480px;
+  padding: clamp(var(--sp-5), 4vw, var(--sp-7));
+  background: var(--surface-raised);
+}
+
+.form__title { font-size: var(--fs-display-3); }
+.form__intro { margin-top: 0.6em; color: var(--text-secondary); font-size: var(--fs-small); }
+
+.field { margin-top: var(--sp-5); }
+
+.field__label {
+  display: block;
+  margin-bottom: var(--sp-2);
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+}
+
+.field__optional { color: var(--text-hint); font-weight: 600; }
+
+.field__hint {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-micro);
+  color: var(--text-hint);
+}
+
+.field__error {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-micro);
+  color: var(--error);
+}
+
+.field__error:empty { display: none; }
+
+.input {
+  width: 100%;
+  min-height: var(--field-height);
+  padding-inline: var(--field-pad-x);
+  border: 1px solid var(--border-ui);
+  border-radius: var(--r-1);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: var(--fs-body);
+}
+
+.input::placeholder { color: var(--text-hint); opacity: 1; }
+.input:hover { border-color: var(--text-hint); }
+
+.input:focus-visible {
+  outline: var(--w-focus) solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+
+.input[aria-invalid="true"], .input:user-invalid { border-width: 2px; border-color: var(--error); }
+
+.tel {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--border-ui);
+  border-radius: var(--r-1);
+  background: var(--surface);
+}
+
+/* The +91 prefix and the input are one control, so the ring goes round both.
+   :has, not :focus-within, so it follows keyboard focus like everything else. */
+.tel:has(.input:focus-visible) {
+  outline: var(--w-focus) solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+
+.tel__prefix {
+  display: grid;
+  place-content: center;
+  padding-inline: var(--field-pad-x);
+  border-right: 1px solid var(--border-decorative);
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+.tel .input {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.tel .input:focus-visible { outline: 0; }
+.tel:has(.input[aria-invalid="true"]) { border-width: 2px; border-color: var(--error); }
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- chips */
+
+/* The fieldset stays a block and the chips sit in their own flex row.
+   A <legend> inside a flex container is a special box and browsers do not
+   agree on where it goes. */
+.chips {
+  border: 0;
+  margin-inline: 0;
+  margin-bottom: 0;
+  padding: 0;
+  min-inline-size: 0;
+}
+
+.chips legend {
+  padding: 0;
+  margin-bottom: var(--sp-3);
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+}
+
+.chips__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.chip { position: relative; display: inline-flex; }
+
+.chip input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  clip-path: inset(50%);
+}
+
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--chip-height);
+  padding-inline: var(--chip-pad-x);
+  border: 1px solid var(--border-ui);
+  border-radius: var(--r-1);
+  font-family: var(--f-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-stretch: 92%;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color var(--dur-2) var(--ease-out-quart),
+              color var(--dur-2) var(--ease-out-quart);
+}
+
+.chip span::before {
+  content: "";
+  width: 0;
+  height: 9px;
+  border-right: var(--w-rule) solid currentColor;
+  border-bottom: var(--w-rule) solid currentColor;
+  transform: rotate(45deg) translate(-1px, -1px);
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease-out-quart), width var(--dur-2) var(--ease-out-quart);
+}
+
+.chip input:checked + span {
+  background: var(--accent);
+  color: var(--accent-on);
+  border-color: var(--accent);
+}
+
+/* Selection is never colour alone. */
+.chip input:checked + span::before { width: 5px; opacity: 1; }
+.chip input:hover + span { border-color: var(--text-hint); }
+
+.chip input:focus-visible + span {
+  outline: var(--w-focus) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.chips__empty {
+  font-size: var(--fs-small);
+  color: var(--text-hint);
+}
+
+/* --------------------------------------------------------- consent, submit */
+
+.consent {
+  margin-top: var(--sp-5);
+  font-size: var(--fs-micro);
+  color: var(--text-hint);
+  max-width: none;
+}
+
+.form__submit { margin-top: var(--sp-4); width: 100%; }
+
+.form__alert {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: var(--w-rule) solid var(--error);
+  background: var(--surface);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+
+.form__alert:empty { display: none; }
+
+.form__aside {
+  margin-top: var(--sp-5);
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.noscript-note {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  font-size: var(--fs-small);
+}
+
+/* --------------------------------------------------------- success panel */
+
+.done { max-width: 480px; padding: clamp(var(--sp-5), 4vw, var(--sp-7)); background: var(--surface-raised); }
+.done h3 { font-size: var(--fs-display-3); }
+.done h3:focus-visible { outline: var(--w-focus) solid var(--focus-ring); outline-offset: 4px; }
+.done p { margin-top: 0.6em; color: var(--text-secondary); }
+.done__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4); margin-top: var(--sp-6); }
+
+/* --------------------------------------------------------------- footer */
+
+.footer {
+  padding-block: clamp(var(--sp-7), 6vw, var(--sp-8));
+  border-top: var(--w-hairline) solid var(--border-decorative);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.footer__name {
+  font-family: var(--f-display);
+  font-size: var(--fs-display-3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.footer__line { margin-top: 0.4em; color: var(--text-secondary); max-width: var(--measure-lead); }
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  margin-top: var(--sp-6);
+  font-size: var(--fs-small);
+}
+
+.footer__colophon {
+  margin-top: var(--sp-6);
+  font-size: var(--fs-micro);
+  color: var(--text-hint);
+}
+
+/* Room for the seat bar so it never covers the last line of the footer. */
+.footer { padding-bottom: calc(clamp(var(--sp-7), 6vw, var(--sp-8)) + var(--seatbar-height)); }
+
+@media (min-width: 1024px) {
+  .footer { padding-bottom: clamp(var(--sp-7), 6vw, var(--sp-8)); }
+}
+
+/* =========================================================== motion
+   Five animations. Every one has a one-sentence reason, written where it
+   is implemented. Nothing here gates the visibility of any content.      */
+
+/* A1. The four strikes: the objection is literally being crossed out, so
+   the motion is the meaning. Drawn already unless the script says
+   otherwise, so a failed script leaves them struck. */
+.js-strikes .crossing__struck::after {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 320ms var(--ease-out-quart);
+  transition-delay: calc(var(--strike-i, 0) * 90ms);
+}
+
+.js-strikes .crossing.is-struck .crossing__struck::after { clip-path: inset(0 0 0 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-strikes .crossing__struck::after { clip-path: inset(0 0 0 0); transition: none; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+
+    /* A2. The cut: the room actually goes dark at that hour, and the page's
+       job is to make the day feel like a day. The band is taller than the
+       viewport and the crossfade runs only across `contain`, the phase where
+       the band is the only thing on screen. Before it the band is white and
+       matches the day above; after it the band is black and matches the
+       night below; so the seam is invisible at both ends. */
+    .cut-band {
+      height: 130svh;
+      animation: cut-fade linear both;
+      animation-timeline: view();
+      animation-range: contain 0% contain 100%;
+    }
+
+    @keyframes cut-fade { to { background-color: var(--c-black); } }
+
+    /* A3. The export bar: it is the hard deadline the whole business rests
+       on, rendered as the one thing on the page that is running out. */
+    .block--cut { view-timeline-name: --cut-block; view-timeline-axis: block; }
+
+    .export__fill {
+      transform: scaleX(0);
+      animation: export-fill linear both;
+      animation-timeline: --cut-block;
+      animation-range: entry 60% cover 85%;
+    }
+
+    .export__done {
+      opacity: 0;
+      animation: export-done steps(1, end) both;
+      animation-timeline: --cut-block;
+      animation-range: entry 60% cover 85%;
+    }
+
+    @keyframes export-fill { to { transform: scaleX(1); } }
+    @keyframes export-done { 92% { opacity: 0; } 100% { opacity: 1; } }
+  }
+}
+
+/* A4 is the rail, and it is a 140ms opacity crossfade declared with the rail
+   itself. A5 is press and focus, declared with the button. */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .btn__bar::after { animation: none; width: 100%; }
+}
+
+/* ========================================================== forced colours */
+
+@media (forced-colors: active) {
+  .act, .block, .masthead, .footer, .seatbar, .form, .done, .slot {
+    background: Canvas;
+    color: CanvasText;
+  }
+  .link, .prose a, .timecode, .rung__price, .rail__time, .export__end { color: LinkText; }
+  .btn { background: ButtonFace; color: ButtonText; border: 1px solid ButtonText; }
+  .input, .tel, .chip span { border: 1px solid CanvasText; }
+  .chip input:checked + span { background: Highlight; color: HighlightText; }
+  .crossing__struck::after, .export__fill, .daybar__seg--shoot, .crew span { background: CanvasText; }
+  .rail__tick { background: CanvasText; }
+  .cut-veil { display: none; }
+  .figure200__circle circle { stroke: CanvasText; fill: transparent; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "The Weekend Film School",
+  "url": "https://www.thenobodyclub.com/filmschool/saturday/",
+  "description": "One Saturday in Hyderabad. You arrive knowing nobody, join a crew of five, and by 7 PM your film is on a screen with your name in the credits.",
+  "areaServed": "Hyderabad, Telangana, India",
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "The Nobody Club",
+    "url": "https://www.thenobodyclub.com"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to the page</a>
+
+<nav class="rail" aria-label="Sections" data-act="day">
+  <ol class="rail__list">
+    <li class="rail__item"><a class="rail__link" href="#crossings"><span class="rail__tick"></span><span class="rail__label">Before you arrive</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#learn"><span class="rail__tick"></span><span class="rail__label"><b class="rail__time">10 AM</b> Learn</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#shoot"><span class="rail__tick"></span><span class="rail__label"><b class="rail__time">12:30</b> Shoot</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#cut"><span class="rail__tick"></span><span class="rail__label"><b class="rail__time">4:30</b> Cut</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#screening"><span class="rail__tick"></span><span class="rail__label"><b class="rail__time">6:30</b> Screening</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#bill"><span class="rail__tick"></span><span class="rail__label">The bill</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#ladder"><span class="rail__tick"></span><span class="rail__label">What comes after</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#questions"><span class="rail__tick"></span><span class="rail__label">Questions</span></a></li>
+    <li class="rail__item"><a class="rail__link" href="#ask"><span class="rail__tick"></span><span class="rail__label">Put your name down</span></a></li>
+  </ol>
+</nav>
+
+<header class="act" data-act="day">
+  <div class="shell masthead">
+    <p class="masthead__mark">The Weekend Film School</p>
+    <p class="masthead__place">Hyderabad</p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 1. The hero ------------------------------------------------------ -->
+  <section class="act hero" data-act="day" aria-labelledby="hero-title">
+    <div class="shell">
+      <h1 class="hero__title" id="hero-title">You have directed four hundred films. You have released none of them.</h1>
+      <div class="hero__rule"></div>
+      <p class="hero__sub">One Saturday in Hyderabad. Ten in the morning to seven at night. By seven, one of them exists.</p>
+      <div class="hero__actions">
+        <a class="btn" href="#ask" data-cta="hero">Put my name down</a>
+        <a class="link" href="#the-day">See what the day looks like</a>
+      </div>
+    </div>
+    <div class="hero__frame bleed" data-slot="hero-terrace-10am" data-ratio="16:9"
+         data-alt="An empty cafe terrace at ten in the morning, chairs still stacked."></div>
+  </section>
+
+  <!-- 2. The four crossings-out ---------------------------------------- -->
+  <section class="act s-argument" id="crossings" data-act="day" aria-labelledby="crossings-title">
+    <div class="shell">
+      <h2 id="crossings-title">Four things you were told you needed.</h2>
+
+      <ol class="crossings">
+        <li class="crossing" style="--strike-i:0">
+          <s class="crossing__struck"><span class="sr-only">Crossed out: </span>You need a camera.</s>
+          <p class="crossing__answer">The one in your pocket shoots 4K. Kubrick would have wept.</p>
+        </li>
+        <li class="crossing" style="--strike-i:1">
+          <s class="crossing__struck"><span class="sr-only">Crossed out: </span>You need four years.</s>
+          <p class="crossing__answer">You need one Saturday. And lunch money.</p>
+        </li>
+        <li class="crossing" style="--strike-i:2">
+          <s class="crossing__struck"><span class="sr-only">Crossed out: </span>You need a crew.</s>
+          <p class="crossing__answer">We hand you five strangers. By evening you will have a group chat.</p>
+        </li>
+        <li class="crossing" style="--strike-i:3">
+          <s class="crossing__struck"><span class="sr-only">Crossed out: </span>You need to know somebody.</s>
+          <p class="crossing__answer">You need to show up. That is genuinely the whole entry requirement.</p>
+        </li>
+      </ol>
+
+      <p class="crossings__turn">What is actually missing is a crew, a deadline, a room, and somebody to watch it. None of those four are for sale anywhere in this city. So we sell exactly those four things, packaged as one Saturday.</p>
+    </div>
+  </section>
+
+  <div data-seatbar-anchor aria-hidden="true"></div>
+
+  <!-- 3. The day ------------------------------------------------------- -->
+  <section id="the-day" aria-labelledby="day-title">
+
+    <div class="act" data-act="day">
+      <div class="shell day__intro">
+        <h2 id="day-title">This is the whole day.</h2>
+        <p class="lead">Nine hours, four blocks, one finished film. The export at 6:15 is a hard stop, and it is the only reason anybody finishes.</p>
+
+        <figure class="daybar">
+          <div class="daybar__track" aria-hidden="true">
+            <div class="daybar__seg" style="--dur:120">2h</div>
+            <div class="daybar__seg daybar__seg--shoot" style="--dur:225">3h 45m</div>
+            <div class="daybar__seg" style="--dur:105">1h 45m</div>
+            <div class="daybar__seg" style="--dur:45">45m</div>
+          </div>
+          <figcaption class="daybar__legend">
+            <span><b>Learn</b> 2h</span>
+            <span><b>Shoot</b> 3h 45m</span>
+            <span><b>Cut</b> 1h 45m</span>
+            <span><b>Screening</b> 45m</span>
+            <span>Drawn to scale.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <article class="block" id="learn">
+        <div class="shell block__inner">
+          <div class="block__text">
+            <h3><span class="timecode">10 AM to 12</span> <span class="block__name">Learn</span></h3>
+            <p class="block__body">Story, framing, sound, and the three shots every scene needs. Then crews are drawn from a hat. An actual hat.</p>
+          </div>
+          <div class="block__frame" data-slot="slips-in-a-hat" data-ratio="3:2"
+               data-alt="A felt hat on a table, half full of folded paper slips."></div>
+        </div>
+      </article>
+
+      <article class="block block--flip" id="shoot">
+        <div class="shell block__inner">
+          <div class="block__text">
+            <h3><span class="timecode">12:30 to 4:15</span> <span class="block__name">Shoot</span></h3>
+            <p class="block__body">Lunch, then a two page script, locked. Then shooting, all of it within two hundred metres. Nobody sits in traffic.</p>
+          </div>
+          <div class="block__frame" data-slot="phone-on-the-stairwell" data-ratio="3:2"
+               data-alt="A phone clamped to a small tripod on a concrete stairwell, pointed up the stairs."></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- The page goes dark here. -->
+    <div class="cut-band" role="presentation" aria-hidden="true"></div>
+
+    <div class="act" data-act="night">
+      <article class="block block--wide block--cut" id="cut">
+        <div class="shell block__inner">
+          <div class="block__text">
+            <h3><span class="timecode">4:30 to 6:15</span> <span class="block__name">Cut</span></h3>
+            <p class="block__body">Edit, sound, music, titles with everyone's name in them. Hard export at 6:15. Somebody always asks for ten more minutes.</p>
+
+            <div class="export" role="img" aria-label="The export deadline, 4:30 PM to 6:15 PM">
+              <div class="export__track"><div class="export__fill"></div></div>
+              <p class="export__labels"><span>4:30</span><span class="export__end">6:15<span class="export__done">. Exported.</span></span></p>
+            </div>
+          </div>
+          <div class="block__frame" data-slot="the-cut-6-14" data-ratio="16:9"
+               data-alt="A laptop open in a dark room at 6:14 PM, an editing timeline on the screen."></div>
+        </div>
+      </article>
+
+      <article class="block" id="screening">
+        <div class="shell block__inner">
+          <div class="block__text">
+            <h3><span class="timecode">6:30 to 7:15</span> <span class="block__name">Screening</span></h3>
+            <p class="block__body">Everyone watches everything. Applause after every single film. At least one person films the screen.</p>
+          </div>
+          <div class="block__frame" data-slot="projected-rectangle" data-ratio="16:9"
+               data-alt="A rectangle of projected light on a bare wall, empty chairs in front of it."></div>
+        </div>
+      </article>
+
+      <div class="shell">
+        <p class="day__lessons">Before the day, five short lessons land in your inbox. Story, frame, sound, performance, cut. Forty minutes each, included in the price, so nobody spends Saturday morning learning what a shot list is.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Two hundred metres -------------------------------------------- -->
+  <section class="act s-figure" id="metres" data-act="night" aria-labelledby="metres-title">
+    <div class="shell figure200">
+      <div class="figure200__head">
+        <h2 id="metres-title">Everything is shot within two hundred metres of the door.</h2>
+        <p class="lead">The cafe, the terrace, the stairwell, the street outside.</p>
+      </div>
+
+      <div class="figure200__plate">
+        <div data-slot="two-hundred-metres" data-ratio="1:1"
+             data-alt="An aerial view of a dense Hyderabad block: rooftops, water tanks, one narrow lane."></div>
+        <svg class="figure200__circle" viewBox="0 0 100 100" role="img"
+             aria-label="A circle two hundred metres across, drawn over a block of the city. Everything is shot inside it.">
+          <circle cx="50" cy="50" r="34"></circle>
+        </svg>
+      </div>
+
+      <p class="figure200__caption">Two hundred metres. Everything inside the circle.</p>
+
+      <p>It sounds like a limitation. It is the only reason the film gets finished by six, and it forces a real scene instead of a montage of establishing shots.</p>
+    </div>
+  </section>
+
+  <!-- 5. The bill ------------------------------------------------------ -->
+  <section class="act s-argument" id="bill" data-act="night" aria-labelledby="bill-title">
+    <div class="shell">
+      <h2 id="bill-title"><span data-founding-price>₹1,499</span> for the first two batches. Then <span data-standard-price>₹1,999</span>, and it stays there.</h2>
+      <p class="bill__dinner">Roughly a nice dinner for two.</p>
+
+      <div class="bill">
+        <div class="bill__group">
+          <h3 class="bill__head">What that pays for</h3>
+          <ul class="bill__list">
+            <li>The room, for nine hours.</li>
+            <li>Two mentors in it all day, moving between crews.</li>
+            <li>Five short lessons before the day, forty minutes each.</li>
+            <li>Tea and snacks.</li>
+            <li>Six crews. Six films.</li>
+            <li>The screening, and a room that claps after every one.</li>
+            <li>Your film, exported and sent to you. It stays yours.</li>
+          </ul>
+        </div>
+
+        <div class="bill__group">
+          <h3 class="bill__head">What it does not pay for</h3>
+          <p class="bill__note">Lunch. Lunch is at the cafe, on your own bill. Their food is better than anything we would arrange, and it is why they give us the space.</p>
+        </div>
+
+        <div class="bill__group">
+          <h3 class="bill__head">If you cannot come</h3>
+          <p class="bill__note">Full refund up to seven days before. After that we have already paid the venue and the mentors, so we move you to the next batch instead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. What comes after ---------------------------------------------- -->
+  <section class="act s-argument" id="ladder" data-act="night" aria-labelledby="ladder-title">
+    <div class="shell">
+      <h2 id="ladder-title">Every level ends with a film that exists.</h2>
+
+      <ol class="ladder">
+        <li class="rung rung--1">
+          <div class="rung__top"><h3 class="rung__name">The Weekend</h3><span class="rung__price">₹1,999</span></div>
+          <p class="rung__body">One day, phones only. Two mentors in the room. Open to absolutely anyone.</p>
+        </li>
+        <li class="rung rung--2">
+          <div class="rung__top"><h3 class="rung__name">The Month</h3><span class="rung__price">₹6,999</span></div>
+          <p class="rung__body">Four weekends. One mentor attached to your crew for the whole month. Published with full credits.</p>
+        </li>
+        <li class="rung rung--3">
+          <div class="rung__top"><h3 class="rung__name">The Intensive</h3><span class="rung__price">₹19,999</span></div>
+          <p class="rung__body">Eight weekends. Real cameras, lights and sound kit, and a working industry professional with your crew throughout.</p>
+        </li>
+        <li class="rung rung--4">
+          <div class="rung__top"><h3 class="rung__name">The Original</h3><span class="rung__price">Free</span></div>
+          <p class="rung__body">Get good enough and we produce your film ourselves. Real budget, real crew, released on our channel. You direct. Selected, not sold.</p>
+        </li>
+      </ol>
+
+      <p class="ladder__close">You only ever commit to the level you are standing on. Nothing here renews.</p>
+    </div>
+  </section>
+
+  <!-- 7. Questions people actually ask ---------------------------------- -->
+  <section class="act s-questions" id="questions" data-act="night" aria-labelledby="questions-title">
+    <div class="shell">
+      <h2 id="questions-title">Questions people actually ask</h2>
+
+      <div class="qa">
+        <details class="qa__item" open>
+          <summary class="qa__q"><h3>I have never made anything. Is this for me?</h3><span class="qa__chevron" aria-hidden="true"></span></summary>
+          <div class="qa__a prose"><p>Yes, and that is the whole point. The day is built for people with zero experience. If you have made films before you will still learn things, but you are not the person we designed it for.</p></div>
+        </details>
+
+        <details class="qa__item">
+          <summary class="qa__q"><h3>Do I need a camera or any equipment?</h3><span class="qa__chevron" aria-hidden="true"></span></summary>
+          <div class="qa__a prose"><p>No. Everything at the weekend and month levels is shot on phones. If someone in your crew owns a tripod or a clip mic they can bring it, but nothing is required.</p></div>
+        </details>
+
+        <details class="qa__item">
+          <summary class="qa__q"><h3>Do I need to bring a team?</h3><span class="qa__chevron" aria-hidden="true"></span></summary>
+          <div class="qa__a prose"><p>No. Most people come alone and we place them in a crew of five. If you want to bring your own team, you can do that too.</p></div>
+        </details>
+
+        <details class="qa__item">
+          <summary class="qa__q"><h3>Who teaches?</h3><span class="qa__chevron" aria-hidden="true"></span></summary>
+          <div class="qa__a prose"><p>Working professionals. Assistant directors, ad film directors, editors and theatre directors who do this for a living and teach on weekends. Two mentors per day, moving between the crews.</p></div>
+        </details>
+
+        <details class="qa__item">
+          <summary class="qa__q"><h3>What if my film is bad?</h3><span class="qa__chevron" aria-hidden="true"></span></summary>
+          <div class="qa__a prose">
+            <p>It will be. So was everyone's, including the founder's, which is currently sitting in a folder marked do not open.</p>
+            <p>The point is that it exists, you finished it, and you now know exactly what you would fix. That last part is the whole education.</p>
+          </div>
+        </details>
+
+        <details class="qa__item">
+          <summary class="qa__q"><h3>What do I bring?</h3><span class="qa__chevron" aria-hidden="true"></span></summary>
+          <div class="qa__a prose"><p>A charged phone, its charger, and a power bank if you own one. Lunch money. For the AI Sunday, a laptop. That is the whole list.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. The empty shelf ------------------------------------------------ -->
+  <section class="act s-shelf shelf" id="shelf" data-act="night" aria-labelledby="shelf-title">
+    <div class="shell">
+      <h2 id="shelf-title">There are no student films on this page yet.</h2>
+      <p>The first batch has not run. When it has, the films go here, uncut, with everyone's name on them. Nothing will be quietly reshot later.</p>
+    </div>
+  </section>
+
+  <!-- 9. Put your name down --------------------------------------------- -->
+  <section class="act s-ask" id="ask" data-act="night" aria-labelledby="ask-title">
+    <div class="ask__frame bleed" data-slot="projected-rectangle" data-ratio="16:9"
+         data-alt="A rectangle of projected light on a bare wall, empty chairs in front of it."></div>
+
+    <div class="shell">
+      <div class="ask__head">
+        <h2 id="ask-title">6:30 PM. The lights go down and everybody watches everything.</h2>
+        <p class="ask__scale">Thirty seats. Six crews. Six films by seven that evening.</p>
+
+        <div class="crews" aria-hidden="true">
+          <div class="crew"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="crew"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="crew"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="crew"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="crew"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="crew"><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+
+      <form class="form" id="lead-form" novalidate>
+        <h3 class="form__title">Put your name down</h3>
+        <p class="form__intro">No payment now. We message you on WhatsApp with the date, the venue pin and a payment link, and you decide then.</p>
+
+        <div class="field">
+          <label class="field__label" for="lead-name">Your name</label>
+          <input class="input" id="lead-name" name="name" type="text" required
+                 autocomplete="name" autocapitalize="words" maxlength="80"
+                 enterkeyhint="next" placeholder="Priya" aria-describedby="lead-name-error">
+          <p class="field__error" id="lead-name-error" role="alert"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="lead-phone">WhatsApp number<span class="sr-only">, plus 91</span></label>
+          <div class="tel">
+            <span class="tel__prefix" aria-hidden="true">+91</span>
+            <input class="input" id="lead-phone" name="phone" type="tel" required
+                   inputmode="numeric" autocomplete="tel-national" maxlength="14"
+                   enterkeyhint="done" aria-describedby="lead-phone-hint lead-phone-error">
+          </div>
+          <p class="field__hint" id="lead-phone-hint">We use it to send you the venue pin. Nothing else.</p>
+          <p class="field__error" id="lead-phone-error" role="alert"></p>
+        </div>
+
+        <fieldset class="field chips">
+          <legend>Which one?</legend>
+          <div class="chips__row" data-which>
+            <label class="chip"><input type="radio" name="preference" value="either" checked><span>Whichever fills first</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field chips">
+          <legend>What have you made so far? <span class="field__optional">(optional)</span></legend>
+          <div class="chips__row">
+            <label class="chip"><input type="radio" name="experience" value="nothing"><span>Nothing yet</span></label>
+            <label class="chip"><input type="radio" name="experience" value="phone_videos"><span>Phone videos</span></label>
+            <label class="chip"><input type="radio" name="experience" value="short_film"><span>A short film</span></label>
+            <label class="chip"><input type="radio" name="experience" value="acting"><span>I act</span></label>
+            <label class="chip"><input type="radio" name="experience" value="writing"><span>I write</span></label>
+          </div>
+        </fieldset>
+
+        <div class="hp" aria-hidden="true">
+          <label for="hp_company">Company</label>
+          <input id="hp_company" name="hp_company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" name="ts" value="">
+
+        <p class="consent">By putting your name down you agree we can message you on WhatsApp about this workshop. Nothing else, and you can tell us to stop at any time.</p>
+
+        <button class="btn form__submit" type="submit" data-cta="ask">Put my name down</button>
+
+        <p class="form__alert" id="lead-alert" role="alert" tabindex="-1"></p>
+
+        <noscript>
+          <p class="noscript-note">This form needs JavaScript to send. Write to <a class="link" href="mailto:hello@thenobodyclub.com">hello@thenobodyclub.com</a> with your name and number and we will put you down by hand.</p>
+        </noscript>
+
+        <!-- Both routes are in the HTML rather than injected: this is the
+             no-script path, the backend-down path, and a preference. -->
+        <p class="form__aside">Would rather just message us? Write to <a class="link" href="mailto:hello@thenobodyclub.com" data-link="email" data-text="email">hello@thenobodyclub.com</a><span data-link-hide>, or <a class="link" href="#" data-link="whatsappEnquiry">message us on WhatsApp</a></span>.</p>
+      </form>
+
+      <div class="done" id="lead-done" hidden></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="act footer" data-act="night">
+  <div class="shell">
+    <p class="footer__name">The Weekend Film School. Hyderabad.</p>
+    <p class="footer__line">Make your first film in one day. No camera, no experience, no contacts needed.</p>
+    <p class="footer__links">
+      <span data-link-hide><a class="link" href="#" data-link="whatsappChannel">WhatsApp channel</a></span>
+      <span data-link-hide><a class="link" href="#" data-link="instagram">Instagram</a></span>
+      <span data-link-hide><a class="link" href="#" data-link="nobodyClub">The Nobody Club</a></span>
+    </p>
+    <p class="footer__colophon">Powered by The Nobody Club. &copy; <span data-year>2026</span>.</p>
+  </div>
+</footer>
+
+<div class="seatbar" id="seatbar" data-act="day">
+  <p class="seatbar__meta" data-seatbar-meta></p>
+  <a class="btn btn--sm" href="#ask" data-cta="seatbar">Put my name down</a>
+</div>
+
+<script src="../assets/js/config.js" defer></script>
+<script src="assets/js/saturday.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img"
+     aria-label="The Weekend Film School — make your first film in one day">
+  <defs>
+    <radialGradient id="glow" cx="10%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#d9b26a" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#0f1216" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0f1216"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <text x="80" y="110" font-family="'JetBrains Mono',monospace" font-size="18" letter-spacing="6"
+        fill="#d9b26a">HYDERABAD · ONE SATURDAY · FROM ₹1,499</text>
+
+  <g font-family="'Space Grotesk',system-ui,sans-serif" font-weight="700" font-size="104" letter-spacing="-3">
+    <text x="80" y="270" fill="#f4efe4">THE WEEKEND</text>
+    <text x="80" y="380" fill="#d9b26a">FILM SCHOOL</text>
+  </g>
+
+  <rect x="80" y="425" width="120" height="4" fill="#d9b26a"/>
+
+  <text x="80" y="495" font-family="Inter,system-ui,sans-serif" font-size="30" fill="#98a1af">
+    Make your first film in one day.
+  </text>
+  <text x="80" y="540" font-family="Inter,system-ui,sans-serif" font-size="30" fill="#98a1af">
+    No camera. No experience. No contacts.
+  </text>
+
+  <text x="80" y="590" font-family="'JetBrains Mono',monospace" font-size="16" letter-spacing="4"
+        fill="#5c6472">POWERED BY THE NOBODY CLUB</text>
+</svg>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book your seat — The Weekend Film School</title>
+<meta name="description" content="Confirm your seat for a one-day filmmaking workshop in Hyderabad. Pay, join the batch WhatsApp group, watch five short lessons, show up on the day.">
+<link rel="canonical" href="https://www.thenobodyclub.com/filmschool/book.html">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0f1216">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+
+<body data-page="dates" data-book-page>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html">THE WEEKEND <span>FILM SCHOOL</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav class="nav" id="site-nav" data-open="false" aria-label="Main">
+      <ul>
+        <li><a href="index.html" data-nav="home">How it works</a></li>
+        <li><a href="dates.html" data-nav="dates">Upcoming</a></li>
+        <li><a href="masterclasses.html" data-nav="masterclasses">Masterclasses</a></li>
+        <li><a href="films.html" data-nav="films">Student films</a></li>
+        <li><a href="faq.html" data-nav="faq">FAQ</a></li>
+      </ul>
+      <a class="nav-cta" href="dates.html">All dates</a>
+    </nav>
+    <a class="btn btn-primary btn-header" href="dates.html">All dates</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Shown when the ?w= workshop is missing, sold out or already past -->
+  <section class="band" data-book-missing hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Nothing selected</p>
+        <h2>That batch is <span class="y">no longer open</span></h2>
+        <p class="sublede">It has either sold out or already happened. The next dates are always on the upcoming page, and the WhatsApp channel announces them first.</p>
+      </div>
+      <div class="btn-row mt-0">
+        <a class="btn btn-primary" href="dates.html">See upcoming dates</a>
+        <a class="btn btn-ghost" data-link="whatsappChannel">Join the WhatsApp channel</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- The booking detail -->
+  <div data-book-detail hidden>
+
+    <section class="hero" style="padding-bottom:32px">
+      <div class="wrap">
+        <p class="kicker">Confirm your seat</p>
+        <h1 data-book-title>Loading…</h1>
+        <p class="lede" data-book-note></p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="book-grid">
+
+          <div>
+            <div class="section-head">
+              <p class="eyebrow">How booking works</p>
+              <h2>Four steps, <span class="y">about two minutes</span></h2>
+            </div>
+
+            <div class="steps">
+              <div class="step-item">
+                <div>
+                  <h4>Pay for the seat</h4>
+                  <p>Card, UPI or netbanking through Razorpay. Seats are held only once payment lands, and they do go.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div>
+                  <h4>You get the five lessons</h4>
+                  <p>Story, frame, sound, performance, cut. Forty minutes each, included in the price. Watch them before the day so the classroom time goes to the parts you cannot learn alone.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div>
+                  <h4>Three days before, you get the group</h4>
+                  <p>A WhatsApp group for your batch, with the venue pin, the timings and who else is coming.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div>
+                  <h4>You show up and make a film</h4>
+                  <p>Ten in the morning to seven at night. Crews from a hat, script by half twelve, export at 6:15, everybody watches everything at 6:30.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-head mt-7">
+              <p class="eyebrow">Bring</p>
+              <h2>Almost <span class="y">nothing</span></h2>
+            </div>
+            <ul class="checklist">
+              <li>A charged phone, and its charger. A power bank if you own one.</li>
+              <li>A laptop, only if this is the AI Sunday.</li>
+              <li>Lunch money. Lunch is at the cafe, on your own bill.</li>
+              <li>No camera, no experience, no contacts, no team. Those are all our problem.</li>
+            </ul>
+          </div>
+
+          <aside class="card book-summary">
+            <span class="badge" data-book-track></span>
+            <h3 class="mt-3" data-book-title>Loading…</h3>
+
+            <div class="mt-4">
+              <div class="price-line"><span class="k">When</span><span class="v" data-book-date></span></div>
+              <div class="price-line"><span class="k">Time</span><span class="v" data-book-time></span></div>
+              <div class="price-line"><span class="k">Where</span><span class="v" data-book-venue></span></div>
+              <div class="price-line"><span class="k">Availability</span><span class="v" data-book-seats></span></div>
+              <div class="price-line"><span class="k">You pay</span><span class="v total" data-book-total></span></div>
+            </div>
+
+            <a class="btn btn-primary btn-block mt-5" data-book-pay href="#">Pay and confirm my seat</a>
+
+            <p class="small text-dim mt-3" data-book-fallback hidden>
+              Online payment is not live for this batch yet, so we take bookings on WhatsApp and send you a payment link there. It takes about a minute.
+            </p>
+
+            <p class="small text-dim mt-3">
+              Full refund up to seven days before the day. After that we move you to the next batch instead.
+            </p>
+            <p class="small text-dim mt-3">
+              Questions first? <a class="y" data-link="whatsappEnquiry">Message us</a> — we reply within a day.
+            </p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="index.html">THE WEEKEND <span>FILM SCHOOL</span></a>
+        <p class="blurb">Make your first film in one day. Hyderabad, most weekends. No camera, no experience, no contacts needed.</p>
+      </div>
+      <div>
+        <h4>The school</h4>
+        <ul>
+          <li><a href="index.html">How it works</a></li>
+          <li><a href="dates.html">Upcoming weekends</a></li>
+          <li><a href="masterclasses.html">Masterclasses</a></li>
+          <li><a href="films.html">Student films</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Come along</h4>
+        <ul>
+          <li data-link-hide><a data-link="whatsappChannel">WhatsApp channel</a></li>
+          <li data-link-hide><a data-link="instagram">Instagram</a></li>
+          <li data-link-hide><a data-link="youtube">YouTube</a></li>
+          <li data-link-hide><a data-link="nobodyClub">The Nobody Club</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Talk to us</h4>
+        <ul>
+          <li data-link-hide><a data-link="whatsappEnquiry">WhatsApp us</a></li>
+          <li data-link-hide><a data-link="email" data-text="email">hello@thenobodyclub.com</a></li>
+          <li><a href="masterclasses.html#propose">Propose a masterclass</a></li>
+          <li><a href="dates.html#corporate">Corporate film days</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>The Weekend Film School · Hyderabad</span>
+      <span>Powered by The Nobody Club · © <span data-year>2026</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

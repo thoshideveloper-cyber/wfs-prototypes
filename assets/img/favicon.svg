@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Weekend Film School">
+  <rect width="64" height="64" rx="12" fill="#0f1216"/>
+  <!-- clapper top bar -->
+  <path d="M10 18h44v10H10z" fill="#d9b26a"/>
+  <path d="M18 18l-6 10M30 18l-6 10M42 18l-6 10M54 18l-6 10" stroke="#0f1216" stroke-width="3.4" stroke-linecap="square"/>
+  <!-- body -->
+  <rect x="10" y="30" width="44" height="24" rx="3" fill="#1e242d"/>
+  <text x="32" y="48" font-family="'Space Grotesk',system-ui,sans-serif" font-size="18" font-weight="700"
+        fill="#f4efe4" text-anchor="middle">W</text>
+</svg>
